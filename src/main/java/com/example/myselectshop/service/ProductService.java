@@ -4,6 +4,7 @@ import com.example.myselectshop.dto.ProductMypriceRequestDto;
 import com.example.myselectshop.dto.ProductRequestDto;
 import com.example.myselectshop.dto.ProductResponseDto;
 import com.example.myselectshop.entity.Product;
+import com.example.myselectshop.naver.dto.ItemDto;
 import com.example.myselectshop.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +44,13 @@ public class ProductService {
       productResponseDtoList.add(new ProductResponseDto(product));
     }
     return productResponseDtoList;
+  }
+
+  @Transactional
+  public void updateBySearch(Long id, ItemDto itemDto) {
+    Product product = productRepository.findById(id).orElseThrow(
+        () -> new NullPointerException("해당 상품은 존재하지 않습니다.")
+    );
+    product.updateByItemDto(itemDto);
   }
 }
