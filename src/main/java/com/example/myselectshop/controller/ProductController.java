@@ -1,13 +1,11 @@
 package com.example.myselectshop.controller;
 
+import com.example.myselectshop.dto.ProductMypriceRequestDto;
 import com.example.myselectshop.dto.ProductRequestDto;
 import com.example.myselectshop.dto.ProductResponseDto;
 import com.example.myselectshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,5 +16,10 @@ public class ProductController {
   @PostMapping("/products")
   public ProductResponseDto createProduct(@RequestBody ProductRequestDto productRequestDto) {
     return productService.createProduct(productRequestDto);
+  }
+
+  @PutMapping("/products/{id}")
+  public ProductResponseDto updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto productMypriceRequestDto) {
+    return productService.updateProduct(id, productMypriceRequestDto);
   }
 }
